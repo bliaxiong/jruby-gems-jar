@@ -1,4 +1,3 @@
-
 JRUBY_GEMS_JAR = 'jruby-gems.jar'
  
 namespace :jruby do
@@ -36,6 +35,12 @@ namespace :jruby do
     repackage
   end
 
+  desc "list gems that are installed"
+  task :list_gems do 
+    puts 'Looking for tmp directory...'
+    list_gems
+  end
+
   def extract
     Dir.chdir('tmp') do
       `jar -xf ../#{JRUBY_GEMS_JAR}`
@@ -46,6 +51,21 @@ namespace :jruby do
     FileUtils.rm_rf JRUBY_GEMS_JAR
     FileUtils.mv(Dir.glob('tmp/bin/*'), 'tmp/META-INF/jruby.home/bin')
     `jar -cfm #{JRUBY_GEMS_JAR} jruby-gems.manifest -C tmp .`
+  end
+
+  def list_gems
+    if File.exist?('tmp')
+      for gem in Dir.entries('tmp/gems')
+        puts gem
+      end
+    else
+      extract
+      if File.exist?('tmp')
+        for gem in Dir.entries('tmp/gems')
+          puts gem
+        end
+      end
+    end
   end
 
 end
