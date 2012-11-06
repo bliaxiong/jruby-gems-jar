@@ -26,7 +26,8 @@ rake jruby:repackage             ( repackage jruby and gems from tmp back into j
 <pre>rake jruby:extract</pre>
 
 Then to install multiple gems at once run a command line this
-<pre>java -jar jruby-gems.jar -S gem install -i temp gem1 gem2 gem3</pre>
+<pre>java -jar jruby-gems.jar -S gem install -i tmp gem1 gem2 gem3</pre>
+<pre>java -jar jruby-gems.jar -S gem install -i tmp gem1 -v '1.2.3'</pre>
 
 Then package it back up.
 <pre>rake jruby:repackage</pre>
