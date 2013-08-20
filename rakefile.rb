@@ -19,7 +19,7 @@ namespace :jruby do
   
   desc "instal gems with bundle install"
   task :bundle => :extract do 
-   bundle install --path tmp
+   bundle install --path 'tmp'
    repackage
   end
 
