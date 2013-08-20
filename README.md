@@ -16,6 +16,7 @@ That is what this little project tries to do - package up ruby and all your gems
 ## The rakefile details
 <pre>
 rake jruby:add_gem[gem_name, version]     ( add a gem to the jruby-gems.jar file )
+rake jruby:bundle                         ( will run bundle install install )
 rake jruby:extract                        ( extract jruby and all the current gems into a tmp directory )
 rake jruby:remove_gem[gem_name, version]  ( uninstall a gem from the jruby-gems.jar )
 rake jruby:repackage                      ( repackage jruby and gems from tmp back into jruby-gems.jar )
