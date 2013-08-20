@@ -23,6 +23,12 @@ rake jruby:add-source[source]             ( add gem server source )
 rake jruby:remove-source[source]          ( remove gem server source )
 </pre>
 
+## Install gems with bundle install
+
+Make sure you have a Gemfile in the same directory as the jruby-gems.jar. Run 'rake jruby:extract' which creates the tmp
+folder then run 'bundle install --path tmp' and it will install the gems into the tmp folder. After installing, repackage the
+jar.
+
 ## Manual install of gems
 
 <pre>rake jruby:extract</pre>
