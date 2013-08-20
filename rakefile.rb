@@ -16,6 +16,12 @@ namespace :jruby do
   task :repackage do 
     repackage
   end
+  
+  desc "instal gems with bundle install"
+  task :bundle => :extract do 
+   bundle install --path tmp
+   repackage
+  end
 
   desc "add a gem to the #{JRUBY_GEMS_JAR} file"
   task :add_gem, [:gem_name, :version] => :extract do |task, args|
