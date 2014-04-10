@@ -35,7 +35,10 @@ namespace :jruby do
 
   desc "add a gem to the #{JRUBY_GEMS_JAR} file"
   task :add_gem, [:gem_name, :version] do |task, args|
-    extract unless File.directory?("tmp")
+    unless Dir.entries(".").include?("tmp")
+      init
+      extract 
+    end
     gem_name = args[:gem_name].strip
     if args[:version]
       version = args[:version].strip
@@ -48,7 +51,10 @@ namespace :jruby do
 
   desc "uninstall a gem from the #{JRUBY_GEMS_JAR} file"
   task :remove_gem, [:gem_name, :version] do |task, args|
-    extract unless File.directory?("tmp")
+    unless Dir.entries(".").include?("tmp")
+      init
+      extract 
+    end
     gem_name = args[:gem_name].strip
     if args[:version]
       version = args[:version].strip
