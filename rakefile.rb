@@ -19,8 +19,11 @@ namespace :jruby do
   
   desc "instal gems with bundle install"
   task :bundle do 
-   extract unless File.directory?("tmp")
-   bundle install --path tmp
+    unless Dir.entries(".").include?("tmp")
+      init
+      extract 
+    end
+   puts `java -jar #{JRUBY_GEMS_JAR} -S bundle install --path tmp`
    repackage
   end
   
