@@ -20,7 +20,7 @@ rake jruby:bundle                         ( will run bundle install install )
 rake jruby:extract                        ( extract jruby and all the current gems into a tmp directory )
 rake jruby:remove_gem[gem_name, version]  ( uninstall a gem from the jruby-gems.jar )
 rake jruby:repackage                      ( repackage jruby and gems from tmp back into jruby-gems.jar )
-rake jruby:add-source[source]             ( add gem server source )
+rake jruby:add_source[source]             ( add gem server source )
 rake jruby:remove-source[source]          ( remove gem server source )
 </pre>
 
