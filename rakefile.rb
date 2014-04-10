@@ -17,11 +17,11 @@ namespace :jruby do
     repackage
   end
   
-  #desc "instal gems with bundle install"
-  #task :bundle => :extract do 
-  # bundle install --path 'tmp'
-  # repackage
-  #end
+  desc "instal gems with bundle install"
+  task :bundle => :extract do 
+  bundle install --path tmp
+  repackage
+  end
   
   desc "add gem server as source"
   task :add_source, [:source] do |task, args|
@@ -30,7 +30,8 @@ namespace :jruby do
   end
 
   desc "add a gem to the #{JRUBY_GEMS_JAR} file"
-  task :add_gem, [:gem_name, :version] => :extract do |task, args|
+  task :add_gem, [:gem_name, :version] do |task, args|
+    extract unless File.directory?("tmp")
     gem_name = args[:gem_name].strip
     if args[:version]
       version = args[:version].strip
@@ -42,7 +43,8 @@ namespace :jruby do
   end
 
   desc "uninstall a gem from the #{JRUBY_GEMS_JAR} file"
-  task :remove_gem, [:gem_name, :version] => :extract do |task, args|
+  task :remove_gem, [:gem_name, :version] do |task, args|
+    extract unless File.directory?("tmp")
     gem_name = args[:gem_name].strip
     if args[:version]
       version = args[:version].strip
@@ -57,8 +59,7 @@ namespace :jruby do
 
   desc "list gems that are installed"
   task :list_gems do 
-    puts 'Looking for tmp directory...'
-    list_gems
+    puts `java -jar #{JRUBY_GEMS_JAR} -S gem list`
   end
 
   def extract
@@ -71,21 +72,6 @@ namespace :jruby do
     FileUtils.rm_rf JRUBY_GEMS_JAR
     FileUtils.mv(Dir.glob('tmp/bin/*'), 'tmp/META-INF/jruby.home/bin')
     `jar -cfm #{JRUBY_GEMS_JAR} jruby-gems.manifest -C tmp .`
-  end
-
-  def list_gems
-    if File.exist?('tmp')
-      for gem in Dir.entries('tmp/gems')
-        puts gem
-      end
-    else
-      extract
-      if File.exist?('tmp')
-        for gem in Dir.entries('tmp/gems')
-          puts gem
-        end
-      end
-    end
   end
 
 end
