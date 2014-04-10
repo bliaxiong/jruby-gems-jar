@@ -18,9 +18,10 @@ namespace :jruby do
   end
   
   desc "instal gems with bundle install"
-  task :bundle => :extract do 
-  bundle install --path tmp
-  repackage
+  task :bundle do 
+   extract unless File.directory?("tmp")
+   bundle install --path tmp
+   repackage
   end
   
   desc "add gem server as source"
