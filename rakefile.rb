@@ -24,7 +24,7 @@ namespace :jruby do
   #end
   
   desc "add gem server as source"
-  task :add_source, [:source] do 
+  task :add_source, [:source] do |task, args|
     source = args[:source].strip
     puts `java -jar #{JRUBY_GEMS_JAR} -S gem sources -a #{source}`
   end
