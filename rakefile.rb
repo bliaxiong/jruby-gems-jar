@@ -17,11 +17,11 @@ namespace :jruby do
     repackage
   end
   
-  desc "instal gems with bundle install"
-  task :bundle => :extract do 
-   bundle install --path 'tmp'
-   repackage
-  end
+  #desc "instal gems with bundle install"
+  #task :bundle => :extract do 
+  # bundle install --path 'tmp'
+  # repackage
+  #end
   
   desc "add gem server as source"
   task :add_source, [:source] do 
