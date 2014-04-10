@@ -22,6 +22,12 @@ namespace :jruby do
    bundle install --path 'tmp'
    repackage
   end
+  
+  desc "add gem server as source"
+  task :add_source, [:source] do 
+    source = args[:source].strip
+    puts `java -jar #{JRUBY_GEMS_JAR} -S gem sources -a #{source}`
+  end
 
   desc "add a gem to the #{JRUBY_GEMS_JAR} file"
   task :add_gem, [:gem_name, :version] => :extract do |task, args|
